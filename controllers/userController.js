@@ -1,5 +1,6 @@
 import { apiResponse, generateOTP } from "../common/index.js";
 import User from "../models/user.js";
+import path from 'path';
 
 export const createUser = async (req, res) => {
     try {
@@ -43,7 +44,11 @@ export const verifyUser = async (req, res) => {
 
   export const userProfile =async (req,res) => {
     try {
-        const { id, name, email, dob, gender, mobile,profileImage="" } = req.body;
+        const { id, name, email, dob, gender, mobile } = req.body;
+        let profileImage = req.file ? req.file.path : null;
+        if (profileImage) {
+          profileImage = path.posix.normalize(profileImage);
+        }
 
         const user = await User.findByPk(id);
         if (!user) {
@@ -54,7 +59,8 @@ export const verifyUser = async (req, res) => {
             email: email || user.email, 
             dob: dob || user.dob, 
             gender: gender || user.gender ,
-            mobile : mobile || user.mobile
+            mobile : mobile || user.mobile,
+            profileImage
           });
           
           const { otp: _, ...userData } = user.toJSON();
