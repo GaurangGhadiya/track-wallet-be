@@ -3,7 +3,7 @@ import Joi from "joi";
 // Reusable mobile validation schema
 export const idSchema = Joi.number().integer().required().messages({
   "number.base": "ID must be a valid number!",
-  "any.required": "User ID is required!"
+  "any.required": "ID is required!"
 })
 
 export const mobileSchema = Joi.number().integer().min(1000000000).max(9999999999).required().messages({
@@ -47,6 +47,28 @@ export const dobSchema = Joi.date()
 export const genderSchema = Joi.string().valid("male", "female", "other").optional().messages({
   "string.base": "Gender must be a valid string!",
   "any.only": "Gender must be either 'male', 'female', or 'other'!"
+})
+
+export const categoryNameSchema = Joi.string().min(2).max(50).required().messages({
+  "string.base": "Name must be a valid string!",
+  "string.min": "Name must have at least 2 characters!",
+  "string.max": "Name must not exceed 50 characters!",
+  "any.required": "Name is required!"
+
+})
+export const categoryIconSchema = Joi.string().min(2).max(50).required().messages({
+  "string.base": "Icon must be a valid string!",
+  "string.min": "Icon must have at least 3 characters!",
+  "string.max": "Icon must not exceed 15 characters!",
+  "any.required": "Icon is required!"
+
+})
+export const categoryColorSchema = Joi.string().min(2).max(50).required().messages({
+  "string.base": "Color must be a valid string!",
+  "string.min": "Color must have at least 3 characters!",
+  "string.max": "Color must not exceed 15 characters!",
+  "any.required": "Color is required!"
+
 })
 
 

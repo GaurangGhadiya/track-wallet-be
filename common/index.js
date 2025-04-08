@@ -1,4 +1,4 @@
-export const apiResponse = async (status, message, data, error) => {
+export const apiResponse = async (status, message="", data={}, error={}) => {
     return {
         status,
         message,
